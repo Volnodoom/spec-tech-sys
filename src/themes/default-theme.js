@@ -6,5 +6,6 @@ export const defaultTheme = {
     borderSub: '#E5E5E5',
     accent: '#F6B52E',
     accentActive: '#A8750F',
+    mainBack: '#f2f3f8',
   }
 };

@@ -1,20 +1,22 @@
+import LogIn from "../log-in/log-in";
+import * as S from "./app.style";
+import Logo from "../../assets/img/logo.png";
+import Restore from "../restore/restore";
+
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <S.AppWrapper>
+      <S.AppCard>
+        <S.AppLogo
+          src={Logo}
+          alt="СпецТех Система. CRM-система"
+        />
+        <LogIn />
+        {/* <Restore /> */}
+
+      </S.AppCard>
+
+    </S.AppWrapper>
   );
 }
 
