@@ -7,5 +7,6 @@ export const defaultTheme = {
     accent: '#F6B52E',
     accentActive: '#A8750F',
     mainBack: '#f2f3f8',
+    private: '#F7DADE',
   }
 };

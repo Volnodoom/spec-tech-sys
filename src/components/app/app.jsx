@@ -1,22 +1,14 @@
-import LogIn from "../log-in/log-in";
-import * as S from "./app.style";
-import Logo from "../../assets/img/logo.png";
-import Restore from "../restore/restore";
+import { Route, Routes } from "react-router-dom";
+import PrivatePage from "../private-page/private-page";
+import { AppRoutes } from "../../utils/constants";
+import MainPage from "../main-page/main-page";
 
-function App() {
+const App = () => {
   return (
-    <S.AppWrapper>
-      <S.AppCard>
-        <S.AppLogo
-          src={Logo}
-          alt="СпецТех Система. CRM-система"
-        />
-        <LogIn />
-        {/* <Restore /> */}
-
-      </S.AppCard>
-
-    </S.AppWrapper>
+    <Routes>
+      <Route path={AppRoutes.Root} element={<MainPage/>} />
+      <Route path={AppRoutes.Private} element={<PrivatePage />} />
+    </Routes>
   );
 }
 
