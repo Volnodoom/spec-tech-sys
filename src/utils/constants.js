@@ -1,3 +1,6 @@
+export const MASK_MOBILE = '+7 XXX XXX XX XX';
+export const FIX_DIGITS_NUMBER = 11;
+
 export const AppRoutes = {
   Root: '/',
   Private: 'private',

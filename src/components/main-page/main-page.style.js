@@ -27,7 +27,6 @@ const MainPageWrapper = styled.div`
 
 const CardFlipWrapper = styled.div`
   position: relative;
-  z-index: 5;
   margin-top: 12em;
   padding: 0 0.63em;
   width: 21.5em;
