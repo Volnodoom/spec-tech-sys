@@ -1,12 +1,12 @@
 import styled from "styled-components";
-import MobileBack from '../../assets/img/mobile-back.png';
-import DeckBack from '../../assets/img/deck-back.png';
+import MobileBack from '../../assets/img/mobile-no-hook-back.png';
+import DeckBack from '../../assets/img/deck-no-hook-back.png';
+import MobileHook from '../../assets/img/mobile-hook.png';
 
 const MainPageWrapper = styled.div`
+  position: relative;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-
+  justify-content: center;
   padding: 0 0.5em;
 
   background-image: url(${MobileBack});
@@ -17,11 +17,17 @@ const MainPageWrapper = styled.div`
     height: 100vh;
     background-image: url(${DeckBack});
   }
+
+  /* for animation */
+  perspective: 1000px;
+  .flip-animation {
+    transform: rotateY(180deg);
+  }
 `;
 
-const MainPageCard = styled.div`
-  display: flex;
-  flex-direction: column;
+const CardFlipWrapper = styled.div`
+  position: relative;
+  z-index: 5;
   margin-top: 12em;
   padding: 0 0.63em;
   width: 21.5em;
@@ -41,22 +47,30 @@ const MainPageCard = styled.div`
     width: 32.25em;
     height: 38em;
   }
+
+  /* animation */
+  transform-style: preserve-3d;
+  transition: transform 1s;
 `;
 
-const MainPageLogo = styled.img`
-  width: 16.5rem;
-  height: 10.75rem;
-  margin: 0 auto 2.63em;
+const CardFlipDecoration = styled.div`
+  position: absolute;
+  content: '';
+  width: 110px;
+  height: 395px;
 
-  object-fit: contain;
+  background-image: url(${MobileHook});
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-size: contain;
 
-  @media(min-width: 1920px) {
-    padding: 3.5em 0 0;
-  }
+  /* animation */
+  transform-style: preserve-3d;
+  transition: transform 1s;
 `;
 
 export {
   MainPageWrapper,
-  MainPageCard,
-  MainPageLogo,
+  CardFlipWrapper,
+  CardFlipDecoration,
 };
