@@ -16,6 +16,11 @@ const RestoreForm = styled(LogInForm)`
   grid-template-areas:
   "restoreLabel"
   "restoreInput";
+
+  > input:first-child {
+    grid-area: restoreInput;
+    margin-bottom: 0.63em;
+  }
 `;
 
 const RestoreLabel = styled(Label)`

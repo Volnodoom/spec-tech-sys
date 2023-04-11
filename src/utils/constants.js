@@ -1,5 +1,6 @@
 export const MASK_MOBILE = '+7 XXX XXX XX XX';
 export const FIX_DIGITS_NUMBER = 11;
+export const AUTH_KEY_NAME = 'trail-user-authorization-status';
 
 export const ErrorFormMessage = {
   WrongLogin: 'Введен не верный логин.',

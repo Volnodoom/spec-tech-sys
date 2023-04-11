@@ -6,11 +6,23 @@ import { useState } from "react";
 
 const App = () => {
   const [isAuthorized, setIsAuthorized] = useState(false);
+  const [memoLogin, setMemoLogin] = useState(null);
 
   return (
     <Routes>
-      <Route path={AppRoutes.Root} element={<MainPage setupAuthorization={setIsAuthorized}/>} />
-      <Route path={AppRoutes.Private} element={<PrivatePage setupAuthorization={setIsAuthorized} authorizationStatus={isAuthorized}/>} />
+      <Route path={AppRoutes.Root} element={<MainPage
+        setupAuthorization={setIsAuthorized}
+        setMemoLogin={setMemoLogin}
+        memoLogin={memoLogin}
+        />}
+      />
+
+      <Route path={AppRoutes.Private} element={<PrivatePage
+        setupAuthorization={setIsAuthorized}
+        authorizationStatus={isAuthorized}
+        setMemoLogin={setMemoLogin}
+        />}
+      />
     </Routes>
   );
 }

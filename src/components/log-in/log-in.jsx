@@ -1,92 +1,52 @@
-import { useRef, useState } from "react";
-import { MASK_MOBILE, FIX_DIGITS_NUMBER, TrueLogIn, ErrorFormMessage, AppRoutes } from "../../utils/constants.js";
+import { useEffect, useRef } from "react";
+import { TrueLogIn, ErrorFormMessage, AppRoutes } from "../../utils/constants.js";
 import { ActionButton } from "../styled-elements/action-button.js";
 import { LinkButton } from "../styled-elements/link-button";
 import * as S from "./log-in.style";
 import { useNavigate } from "react-router-dom";
+import { maskMobile } from "../../utils/utils.js";
+import SpecificInput from "../specific-input/specific-input.jsx";
 
-const maskMobile = (string) => {
-  const numberSequence = /(^[\d]{1})(\d{3})?(\d{3})?(\d{2})?(\d{2})?/g;
-  const elevenDigitsString = string.slice(0, FIX_DIGITS_NUMBER);
-  const result = elevenDigitsString.replace(numberSequence, '+$1 $2 $3 $4 $5' );
-  return result;
-}
-
-const unmaskMobile = (string) => {
-  const numberRegexp = /\D/g;
-  const onlyNumberString = string.replace(numberRegexp, '');
-  return onlyNumberString;
-}
-
-const LogIn = ({triggerRestore, setupAuthorization}) => {
+const LogIn = ({triggerRestore, setupAuthorization, autoLogin}) => {
   const navigate = useNavigate();
   const loginElement = useRef(null);
-  const passwordElement = useRef(null);
-  const [isSkipMasking, setIsSkipMasking] = useState(false);
 
-  const handleLoginClick = (evt) => {
-    const value = evt.target.value;
-
-    if(!value) {
-      evt.target.value = '+7 ';
+  useEffect(() => {
+    if(autoLogin) {
+      loginElement.current.value = autoLogin ? maskMobile(autoLogin) : maskMobile('7');
     }
-  };
-
-  const handleLoginChange = (evt) => {
-    if(isSkipMasking) {
-      return;
-    }
-
-    const value = evt.target.value;
-    const updatedInput = maskMobile(unmaskMobile(value));
-    evt.target.value = updatedInput;
-  }
-
-  const handleKeyDownPress = (evt) => {
-    const isBackspaceKey = evt.keyCode === 8;
-    if(isBackspaceKey) {
-      setIsSkipMasking(true);
-    } else {
-      setIsSkipMasking(false);
-    }
-  }
+  }, [autoLogin])
 
   const handleRestoreClick = () => {
     triggerRestore(true)
   };
 
-  const handleFormSubmit = (evt) => {
-
-    evt.preventDefault();
-    const formData = new FormData(evt.target);
-    const login = unmaskMobile(formData.get('login'));
-    const password = formData.get('password');
-
-
-    if(login !== TrueLogIn.Login) {
-      loginElement.current.setCustomValidity(ErrorFormMessage.WrongLogin);
-    } else if(password !== TrueLogIn.Password) {
-      passwordElement.current.setCustomValidity(ErrorFormMessage.WrongPassword);
+  const handlePasswordChange = (evt) => {
+    if(evt.target.value !== TrueLogIn.Password) {
+      evt.target.setCustomValidity(ErrorFormMessage.WrongPassword);
     } else {
-      loginElement.current.setCustomValidity('');
-      passwordElement.current.setCustomValidity('');
-
-      setupAuthorization(true);
-      navigate(AppRoutes.Private);
+      evt.target.setCustomValidity('');
     }
+  }
+
+  const handleFormSubmit = (evt) => {
+    evt.preventDefault();
+
+    setupAuthorization(true);
+    navigate(AppRoutes.Private);
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   }
 
   return(
     <>
       <S.LogInForm onSubmit={handleFormSubmit}>
-        <S.LoginInput
+        <SpecificInput
           name="login"
           id="Login"
           type="text"
-          onClick={handleLoginClick}
-          onChange={handleLoginChange}
-          onKeyDown={handleKeyDownPress}
-          placeholder={MASK_MOBILE}
           ref={loginElement}
           required
         />
@@ -100,7 +60,7 @@ const LogIn = ({triggerRestore, setupAuthorization}) => {
           name="password"
           id="Password"
           type="text"
-          ref={passwordElement}
+          onChange={handlePasswordChange}
           required
         />
         <S.PasswordLabel
