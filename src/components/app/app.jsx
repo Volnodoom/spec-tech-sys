@@ -1,20 +1,29 @@
-function App() {
+import { Route, Routes } from "react-router-dom";
+import PrivatePage from "../private-page/private-page";
+import { AppRoutes } from "../../utils/constants";
+import MainPage from "../main-page/main-page";
+import { useState } from "react";
+
+const App = () => {
+  const [isAuthorized, setIsAuthorized] = useState(false);
+  const [memoLogin, setMemoLogin] = useState(null);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Routes>
+      <Route path={AppRoutes.Root} element={<MainPage
+        setupAuthorization={setIsAuthorized}
+        setMemoLogin={setMemoLogin}
+        memoLogin={memoLogin}
+        />}
+      />
+
+      <Route path={AppRoutes.Private} element={<PrivatePage
+        setupAuthorization={setIsAuthorized}
+        authorizationStatus={isAuthorized}
+        setMemoLogin={setMemoLogin}
+        />}
+      />
+    </Routes>
   );
 }
 
