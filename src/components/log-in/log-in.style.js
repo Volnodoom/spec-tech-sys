@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { Label } from "../styled-elements/label";
 import { Input } from "../styled-elements/input";
+import { LinkButton } from "../styled-elements/link-button";
+import { ActionButton } from "../styled-elements/action-button";
 
 const LogInForm = styled.form`
   display: grid;
@@ -9,9 +11,9 @@ const LogInForm = styled.form`
   "loginLabel"
   "loginInput"
   "passwordLabel"
-  "passwordInput";
-
-  margin-bottom: 0.75em;
+  "passwordInput"
+  "linkButton"
+  "actionButton";
 
   input:focus + label {
     color: ${({theme}) => theme.color.black};
@@ -33,6 +35,17 @@ const PasswordLabel = styled(Label)`
 
 const PasswordInput = styled(Input)`
   grid-area: passwordInput;
+  margin-bottom: 0.75em;
+`;
+
+const LoginButton = styled(LinkButton)`
+  grid-area: linkButton;
+  justify-content: end;
+`;
+
+const LoginSubmit =styled(ActionButton)`
+  grid-area: actionButton;
+
 `;
 
 

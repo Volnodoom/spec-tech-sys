@@ -6,11 +6,11 @@ import Restore from "../restore/restore";
 import * as S from "./main-page.style";
 import { useEffect, useRef, useState } from "react";
 
-const MainPage = () => {
+const MainPage = ({setupAuthorization}) => {
   const flipCard = useRef(null);
   const decorHook = useRef(null);
   const [isRestoreActive, setIsRestoreActive] = useState(false);
-
+  // setupAuthorization={setIsAuthorized} authorizationStatus={isAuthorized}
   useEffect(() => {
     if(!flipCard.current || !decorHook.current) {
       return;
@@ -30,7 +30,7 @@ const MainPage = () => {
       <S.CardFlipDecoration ref={decorHook}/>
       <S.CardFlipWrapper ref={flipCard}>
         <CardFrame>
-          <LogIn triggerRestore={setIsRestoreActive}/>
+          <LogIn triggerRestore={setIsRestoreActive} setupAuthorization={setupAuthorization}/>
         </CardFrame>
         <CardFrame cardFrameSide={AnimationInfo.Back}>
           <Restore triggerRestore={setIsRestoreActive}/>
